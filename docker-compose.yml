@@ -1,0 +1,20 @@
+fluentd:
+  build: ./fluentd
+  links:
+    - "elasticsearch"
+  # Fluentd logging driver対応の場合
+  ports:
+    - "22422:22422"
+elasticsearch:
+  image: elasticsearch
+  ports:
+    - "9200:9200"
+    - "9300:9300"    
+
+kibana:
+  image: kibana
+  links:
+    - "elasticsearch"
+  ports:
+    - "5601:5601"
+                    
