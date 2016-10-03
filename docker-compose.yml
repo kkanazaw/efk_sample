@@ -2,14 +2,19 @@ fluentd:
   build: ./fluentd
   links:
     - "elasticsearch"
+  volumes:
+    - ./fluentd:/fluentd/etc
   # Fluentd logging driver対応の場合
   ports:
     - "22422:22422"
+    - "8888:8888"
 elasticsearch:
   image: elasticsearch
   ports:
     - "9200:9200"
     - "9300:9300"    
+  volumes:
+    - ./elasticsearch/user/share/elasticsearch/data:/usr/share/elasticsearch/data
 
 kibana:
   image: kibana
@@ -17,4 +22,3 @@ kibana:
     - "elasticsearch"
   ports:
     - "5601:5601"
-                    
